@@ -1,0 +1,23 @@
+services:
+  # FastAPI model service — serves POST /predict
+  - type: web
+    name: credit-risk-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+  # Static frontend — index.html / style.css / script.js
+  - type: web
+    name: credit-risk-ui
+    env: static
+    plan: free
+    staticPublishPath: ./frontend
+    buildCommand: ""
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Risk Assessment</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="mark">Ledger</div>
+    <p class="masthead-note">Underwriting assistant</p>
+  </header>
+
+  <main class="layout">
+
+    <form class="form" id="risk-form" novalidate>
+      <div class="form-intro">
+        <h1>Assess repayment risk before you approve.</h1>
+        <p>Enter the applicant's details and loan terms to get an instant default-risk read from the underwriting model.</p>
+      </div>
+
+      <fieldset class="section">
+        <legend class="section-title">Applicant</legend>
+        <div class="field-grid">
+          <div class="field">
+            <label for="person_age">Age</label>
+            <input type="number" id="person_age" name="person_age" min="18" max="100" step="1" placeholder="34" required>
+          </div>
+          <div class="field">
+            <label for="person_income">Annual income</label>
+            <div class="field-affix">
+              <span class="affix">$</span>
+              <input type="number" id="person_income" name="person_income" min="0" step="100" placeholder="62000" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="person_home_ownership">Home ownership</label>
+            <select id="person_home_ownership" name="person_home_ownership" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="RENT">Rent</option>
+              <option value="MORTGAGE">Mortgage</option>
+              <option value="OWN">Own</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="person_emp_length">Employment length</label>
+            <div class="field-affix">
+              <input type="number" id="person_emp_length" name="person_emp_length" min="0" max="60" step="0.5" placeholder="5" required>
+              <span class="affix affix-suffix">yrs</span>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend class="section-title">Loan terms</legend>
+        <div class="field-grid">
+          <div class="field">
+            <label for="loan_intent">Purpose</label>
+            <select id="loan_intent" name="loan_intent" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="PERSONAL">Personal</option>
+              <option value="EDUCATION">Education</option>
+              <option value="MEDICAL">Medical</option>
+              <option value="VENTURE">Venture</option>
+              <option value="HOMEIMPROVEMENT">Home improvement</option>
+              <option value="DEBTCONSOLIDATION">Debt consolidation</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="loan_grade">Loan grade</label>
+            <select id="loan_grade" name="loan_grade" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="loan_amnt">Loan amount</label>
+            <div class="field-affix">
+              <span class="affix">$</span>
+              <input type="number" id="loan_amnt" name="loan_amnt" min="0" step="100" placeholder="12000" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="loan_int_rate">Interest rate</label>
+            <div class="field-affix">
+              <input type="number" id="loan_int_rate" name="loan_int_rate" min="0" max="40" step="0.01" placeholder="11.5" required>
+              <span class="affix affix-suffix">%</span>
+            </div>
+          </div>
+          <div class="field field-wide">
+            <label for="loan_percent_income">Loan-to-income ratio</label>
+            <input type="number" id="loan_percent_income" name="loan_percent_income" min="0" max="1" step="0.01" placeholder="0.28" required>
+            <p class="field-hint">Loan amount divided by annual income, as a decimal — e.g. 0.28</p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="section">
+        <legend class="section-title">Credit history</legend>
+        <div class="field-grid">
+          <div class="field">
+            <label for="cb_person_default_on_file">Prior default on file</label>
+            <select id="cb_person_default_on_file" name="cb_person_default_on_file" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="N">No</option>
+              <option value="Y">Yes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cb_person_cred_hist_length">Credit history length</label>
+            <div class="field-affix">
+              <input type="number" id="cb_person_cred_hist_length" name="cb_person_cred_hist_length" min="0" max="60" step="1" placeholder="7" required>
+              <span class="affix affix-suffix">yrs</span>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" id="submit-btn" class="submit-btn">
+          <span class="btn-label">Assess risk</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+        <p class="form-error" id="form-error" role="alert"></p>
+      </div>
+    </form>
+
+    <aside class="result-panel" id="result-panel" aria-live="polite">
+
+      <div class="result-state" data-state="idle">
+        <div class="gauge-wrap">
+          <div class="gauge" id="gauge">
+            <svg viewBox="0 0 220 130" class="gauge-svg">
+              <path class="gauge-track" d="M 20 110 A 90 90 0 0 1 200 110" />
+              <path class="gauge-progress" id="gauge-progress" d="M 20 110 A 90 90 0 0 1 200 110" />
+              <line class="gauge-needle" id="gauge-needle" x1="110" y1="110" x2="110" y2="34" />
+              <circle class="gauge-pivot" cx="110" cy="110" r="6" />
+            </svg>
+          </div>
+          <div class="gauge-readout">
+            <span class="gauge-number" id="gauge-number">—</span>
+            <span class="gauge-unit">probability of default</span>
+          </div>
+        </div>
+
+        <div class="verdict" id="verdict">
+          <p class="verdict-idle">Fill in the form to see the risk assessment.</p>
+        </div>
+
+        <dl class="breakdown" id="breakdown" hidden>
+          <div class="breakdown-row">
+            <dt>Model threshold</dt>
+            <dd id="breakdown-threshold">—</dd>
+          </div>
+          <div class="breakdown-row">
+            <dt>Estimated probability</dt>
+            <dd id="breakdown-probability">—</dd>
+          </div>
+        </dl>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>This estimate comes from a trained classification model and is meant to support, not replace, an underwriter's judgment.</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
