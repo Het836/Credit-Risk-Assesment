@@ -26,8 +26,9 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://credit-risk-ui.onrender.com"],  # your static site's URL
-    allow_methods=["POST"],
+    allow_origins=["*"],  # your static site's URL
+    allow_credentials=False,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
