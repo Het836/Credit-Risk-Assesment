@@ -4,7 +4,7 @@
 const API_BASE_URL =
   window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? "http://127.0.0.1:8000"
-    : "https://YOUR-RENDER-API-URL.onrender.com";
+    : "https://credit-ledger-ehj1.onrender.com";
 
 // ---------- Element refs ----------
 const form = document.getElementById("risk-form");
@@ -47,7 +47,8 @@ form.addEventListener("submit", async (event) => {
   setLoading(true);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/predict`, {
+    // const response = await fetch(`${API_BASE_URL}/predict`, {
+    const response = await fetch('https://credit-ledger-ehj1.onrender.com/predict', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

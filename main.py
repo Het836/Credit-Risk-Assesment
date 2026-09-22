@@ -1,6 +1,8 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 import joblib
 from pydantic import BaseModel
 import pandas as pd
@@ -67,8 +69,6 @@ def predict(data: LoanApplication):
     }
 
 
-@app.get("/")
-def greet():
-    return {
-        "message": "hello world!"
-    }
+
+BASE_DIR = Path(__file__).resolve().parent
+app.mount("/", StaticFiles(directory=BASE_DIR / "frontend", html=True), name="frontend")
